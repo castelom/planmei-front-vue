@@ -23,3 +23,8 @@ export async function login(username, password) {
   const response = await api.post('Account/login', { username, password });
   return response.data;
 }
+
+export async function SendMessage(formData) {
+  const response = await api.post('api/Contact/SendMessage', formData);
+  return response.data;
+}

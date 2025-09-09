@@ -4,9 +4,7 @@
     <section
       class="contact-hero text-center text-white d-flex flex-column justify-content-center align-items-center"
     >
-      <h1
-        class="display-4 fw-bold animate__animated animate__fadeInDown"
-      >
+      <h1 class="display-4 fw-bold animate__animated animate__fadeInDown">
         Contact Us
       </h1>
     </section>
@@ -36,14 +34,15 @@
         >
           <div class="card shadow-lg border-0">
             <div class="card-body p-4">
-              <form class= "text-start">
+              <form class="text-start" @submit.prevent="onSubmit">
                 <!-- Title -->
                 <div class="mb-3">
                   <label for="title" class="form-label">Subject:</label>
                   <input
                     type="text"
-                    id="title"
+                    id="subject"
                     class="form-control"
+                    v-model="form.subject"
                     placeholder="Enter the subject of your message"
                   />
                 </div>
@@ -55,6 +54,7 @@
                     type="email"
                     id="email"
                     class="form-control"
+                    v-model="form.email"
                     placeholder="Enter your email address"
                   />
                 </div>
@@ -66,13 +66,14 @@
                     id="message"
                     rows="4"
                     class="form-control"
+                    v-model="form.message"
                     placeholder="Write your message here"
                   ></textarea>
                 </div>
 
                 <!-- reCAPTCHA -->
-                <div class="mb-3 text-center">
-                  <div class="g-recaptcha" :data-sitekey="siteKey"></div>
+                <div class="mb-3 text-center d-flex justify-content-center">
+                  <div class="g-recaptcha" ref="recaptcha"></div>
                 </div>
 
                 <!-- Button -->
@@ -91,15 +92,43 @@
 </template>
 
 <script>
+import { SendMessage } from '../services/api';
+
 export default {
   name: "Contact",
   data() {
     return {
-      // Substitua pela sua chave do site reCAPTCHA
-      siteKey: "YOUR_SITE_KEY"
+      siteKey: "6LcSs8MrAAAAABYQn8VaRiq_aZdeFVspPnVrR_mO",
+      form: {
+        subject: "",
+        email: "",
+        message: "",
+        recaptchaToken: ""
+      }
     };
+  },
+  mounted() {
+    if (window.grecaptcha) {
+      window.grecaptcha.render(this.$refs.recaptcha, {
+        sitekey: this.siteKey,
+        callback: this.onCaptchaResolved
+      });
+    }
+  },
+  methods: {
+    onCaptchaResolved(token) {
+      this.form.recaptchaToken = token;
+    },
+    async onSubmit() {
+      try {
+        await SendMessage(this.form);
+        alert('Your message was sent successfully!');
+      } catch (error) {
+        alert('Error sending message. Please try again later.');
+      }
+    }
   }
-}
+};
 </script>
 
 <style scoped>
