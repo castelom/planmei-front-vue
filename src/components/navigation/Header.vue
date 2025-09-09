@@ -4,12 +4,14 @@
       <img src="../../assets/planmei.png" alt="Logo" />
     </div>
     <nav class="nav-links">
-      <a href="/">Home</a>
-      <a href="/about">About</a>
-      <a href="/contact">Contact Us</a>
+      <router-link to="/">Home</router-link>
+      <router-link to="/about">About</router-link>
+      <router-link to="/contact">Contact Us</router-link>
     </nav>
     <div>
-      <button class="btn-login">Login</button>
+      <router-link to="/login">
+        <button class="btn-login">Login</button>
+      </router-link>
     </div>
   </header>
 </template>

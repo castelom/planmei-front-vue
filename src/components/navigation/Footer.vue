@@ -24,9 +24,9 @@
       <div class="footer-column">
         <h4>Links</h4>
         <ul>
-          <li><a href="#whoami">Home</a></li>
-          <li><a href="#contact">About</a></li>
-          <li><a href="#">Contact Us</a></li>
+            <li><router-link to="/">Home</router-link></li>
+            <li><router-link to="/about">About</router-link></li>
+            <li><router-link to="/contact">Contact Us</router-link></li>
         </ul>
       </div>
       
