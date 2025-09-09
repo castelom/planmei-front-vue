@@ -14,7 +14,7 @@
     <section class="project-overview container py-5">
       <div class="row align-items-center">
         <div class="col-md-6 animate__animated animate__fadeInLeft">
-          <img alt="Illustration of a project prototype" class="img-fluid rounded shadow" />
+          <img src="../assets/design-prototype.png" alt="Illustration of a project prototype" class="img-fluid rounded shadow" />
         </div>
         <div class="col-md-6 animate__animated animate__fadeInRight">
           <h2 class="fw-bold">The Project</h2>
