@@ -144,7 +144,7 @@ export default {
         const data = await getOverview(this.selectedMonth);
         this.overviewData = data;
         this.profit = (this.overviewData.revenue - this.overviewData.expenses).toFixed(2);
-        this.targetAmount = this.overviewData.targetAmount;
+        this.targetAmount = this.overviewData.targetAmount.toFixed(2);
         this.targetReached = (this.overviewData.revenue / this.targetAmount) * 100;
       } catch (error) {
         this.overviewData = { error: "Request error" };

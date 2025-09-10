@@ -8,13 +8,30 @@
       <router-link to="/about">About</router-link>
       <router-link to="/contact">Contact Us</router-link>
     </nav>
-    <div>
+    <div v-if="!isLoggedIn">
       <router-link to="/login">
         <button class="btn-login">Login</button>
       </router-link>
     </div>
+    <div v-else>
+      <span>Welcome {{ userName }}</span>
+    </div>
   </header>
 </template>
+
+<script>
+export default {
+  name: "Header",
+  computed: {
+    isLoggedIn() {
+      return !!localStorage.getItem('token');
+    },
+    userName() {
+      return localStorage.getItem('user_name') || '';
+    }
+  }
+}
+</script>
 
 <style scoped>
 .navbar {

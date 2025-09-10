@@ -100,7 +100,7 @@ export default {
 <style scoped>
 .hero {
   background: linear-gradient(to right, #0a3d62, #3c6382);
-  height: 90vh;
+  height: 40vh;
 }
 .cta {
   background: linear-gradient(to right, #3c6382, #0a3d62);

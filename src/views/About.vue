@@ -63,7 +63,7 @@ export default {
 <style scoped>
 .about-hero {
   background: linear-gradient(to right, #0a3d62, #3c6382);
-  height: 60vh;
+  height: 40vh;
 }
 .cta {
   background: linear-gradient(to right, #3c6382, #0a3d62);

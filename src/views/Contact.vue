@@ -35,7 +35,7 @@
           <div class="card shadow-lg border-0">
             <div class="card-body p-4">
               <form class="text-start" @submit.prevent="onSubmit">
-                <!-- Title -->
+              <!-- Title -->
                 <div class="mb-3">
                   <label for="title" class="form-label">Subject:</label>
                   <input
@@ -44,6 +44,7 @@
                     class="form-control"
                     v-model="form.subject"
                     placeholder="Enter the subject of your message"
+                    required
                   />
                 </div>
 
@@ -56,6 +57,7 @@
                     class="form-control"
                     v-model="form.email"
                     placeholder="Enter your email address"
+                    required
                   />
                 </div>
 
@@ -68,6 +70,7 @@
                     class="form-control"
                     v-model="form.message"
                     placeholder="Write your message here"
+                    required
                   ></textarea>
                 </div>
 
@@ -78,7 +81,17 @@
 
                 <!-- Button -->
                 <div class="d-grid">
-                  <button type="submit" class="btn btn-primary btn-lg">
+                  <button
+                    type="submit"
+                    class="btn btn-primary btn-lg"
+                    :disabled="loading || !isFormValid"
+                  >
+                    <span
+                      v-if="loading"
+                      class="spinner-border spinner-border-sm me-2"
+                      role="status"
+                      aria-hidden="true"
+                    ></span>
                     Contact Us
                   </button>
                 </div>
@@ -104,8 +117,19 @@ export default {
         email: "",
         message: "",
         recaptchaToken: ""
-      }
+      },
+      loading: false
     };
+  },
+  computed: {
+    isFormValid() {
+      return (
+        this.form.subject.trim() &&
+        this.form.email.trim() &&
+        this.form.message.trim() &&
+        this.form.recaptchaToken
+      );
+    }
   },
   mounted() {
     if (window.grecaptcha) {
@@ -120,11 +144,14 @@ export default {
       this.form.recaptchaToken = token;
     },
     async onSubmit() {
+      this.loading = true;
       try {
         await SendMessage(this.form);
         alert('Your message was sent successfully!');
       } catch (error) {
         alert('Error sending message. Please try again later.');
+      } finally {
+        this.loading = false;
       }
     }
   }
