@@ -76,7 +76,7 @@ export default {
             }
         } 
         catch (error) {
-            console.error("Erro no login:", error);
+            console.error("Error", error);
         }
     },
   },
